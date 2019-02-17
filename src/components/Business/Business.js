@@ -4,11 +4,12 @@ import './Business.css';
 class Business extends React.Component {
 
   render() {
-
+    // UNCOMMENT
+    // console.log(this.props.business.urlYelp)
     return (
       <div className="Business">
       <div className="image-container">
-        <img src={this.props.business.imageSrc} alt=''/>
+        <a href={this.props.business.urlYelp}><img src={this.props.business.imageSrc} alt=''/></a>
       </div>
       <h2>{this.props.business.name}</h2>
       <div className="Business-information">
