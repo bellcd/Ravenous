@@ -38,6 +38,7 @@ const Yelp = {
             category: business.categories[0].title,
             rating: business.rating,
             reviewCount: business.review_count,
+            urlYelp: business.url,
 
             // adds the formatted URL as well
             urlGoogleMaps: `${googleMapsUrl}${streetAddress}+${city}+${state}+${zip}`
