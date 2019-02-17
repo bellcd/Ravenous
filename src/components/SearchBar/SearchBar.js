@@ -51,18 +51,23 @@ class SearchBar extends React.Component {
 
   handleSearch(event) {
     this.props.searchYelp(this.state.term, this.state.location, this.state.sortBy);
-    event.preventDefault();
+    // UNCOMMENT
+    if (event) {
+      event.preventDefault();
+    }
   }
 
   renderSortByOptions() {
     return Object.keys(sortByOptions).map(sortByOption => {
       let sortByOptionValue = sortByOptions[sortByOption];
 
-      return <li className={this.getSortByClass(sortByOptionValue)} key={sortByOptionValue} onClick={this.handleSortByChange.bind(this, sortByOptionValue)} >{sortByOption}</li>;
+      return <li className={this.getSortByClass(sortByOptionValue)} key={sortByOptionValue} onClick={this.handleSortByChange.bind(this, sortByOptionValue)}>{sortByOption}</li>;
     });
   }
 
   render() {
+    console.log("beginning of each render()", this.state.sortBy);
+
     return (
       <div className="SearchBar">
         <div className="SearchBar-sort-options">
