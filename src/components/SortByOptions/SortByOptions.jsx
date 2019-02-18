@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 
-// doesn't this need to be INSIDE the component?! instructions from Codecademy said to put it here ...
+// doesn't this need to be INSIDE the component?!
 const sortByOptions = {
   "Best Match": "best_match",
   "Highest Rated": "rating",
@@ -29,7 +29,7 @@ class SortByOptions extends Component {
   }
   // do I need the "this" in the bind function? because onSortByChange is already an arrow function...
 
-  // this is actually running anytime anyting in the App updates, because there are setState() calls in an ancestor Component - App. Should I move the state to a lower component? It seems like I need it there because some Yelp API response data is sent to components that branch from that ancestor App component. That's why the if below tests to only fire the AjAX call if the click event target element was an <li> (as opposed to an input field).
+  // this is actually running anytime anyting in the App updates, because there are setState() calls in an ancestor Component - App. Should I move the state to a lower component? It seems like I need it there because some Yelp API response data is sent to components that branch from that ancestor App component. That's why the "if" below tests to only fire the API call if the click event target element was an <li> (as opposed to an input field).
   // Awkward implmentation (unexpected user actions cause API requests), must be a better way of accomplishing this
   componentDidUpdate(prevProps, prevState) {
     if (this.props.location !== "" && this.props.term !== "" && this.props.clickEventTarget.toString() === "[object HTMLLIElement]") {
