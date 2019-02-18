@@ -5,7 +5,7 @@ import SortByOptions from './../SortByOptions/SortByOptions';
 class SearchBar extends React.Component {
 
   handleSearch = (event) => {
-    this.props.searchYelp(this.props.term, this.props.location, this.props.sortBy);
+    this.props.searchYelp(this.props.term, this.props.location, this.props.sortBy, this.props.radius);
     // UNCOMMENT
     if (event) {
       event.preventDefault();
@@ -31,9 +31,9 @@ class SearchBar extends React.Component {
           </ul>
         </div>
         <div className="SearchBar-fields">
-          <input onChange={this.props.onTermChange} placeholder="Search Businesses" />
+          <input onChange={this.props.onTermChange} placeholder="Search - Food Category or Business Name" />
           <input onChange={this.props.onLocationChange} placeholder="Where?" />
-          <input type="number" onChange={this.props.onRadiusChange} placeholder="Radius To Search (meters)" min="0" max="50000" />
+          <input type="number" onChange={this.props.onRadiusChange} placeholder="Radius To Search (miles)" min="0" max="31" />
         </div>
         <div className="SearchBar-submit">
           <a href="google.com" onClick={this.handleSearch}>Let's Go</a>
