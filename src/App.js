@@ -18,7 +18,16 @@ class App extends Component {
       location: "",
       radius: 0,
       sortBy: "best_match",
-      clickEventTarget: ""
+      clickEventTarget: "",
+      keyPressed: "",
+    }
+  }
+
+  handleClearEnterPress = () => {
+    if (this.state.keyPressed === "Enter") {
+      this.setState({
+        keyPressed: ""
+      });
     }
   }
 
@@ -37,21 +46,27 @@ class App extends Component {
 
   handleTermChange(event) {
     this.setState({
-      term: event.target.value
+      term: event.target.value,
+      keyPressed: event.key
     });
   }
 
   handleLocationChange(event) {
     this.setState({
-      location: event.target.value
+      location: event.target.value,
+      keyPressed: event.key
     });
   }
 
   handleRadiusChange(event) {
-    const radiusInMeters = Math.floor(event.target.value * 1609.34);
+    let radiusInMeters = Math.floor(event.target.value * 1609.34);
+
+    // better way would be data validation at the input field level that prompts the user for a lower radius!
+    radiusInMeters = radiusInMeters > 50000 ? 50000 : radiusInMeters;
 
     this.setState({
-      radius: radiusInMeters
+      radius: radiusInMeters,
+      keyPressed: event.key
     });
   }
 
@@ -79,7 +94,9 @@ class App extends Component {
           sortBy={this.state.sortBy}
           radius={this.state.radius}
           clickEventTarget={this.state.clickEventTarget}
+          keyPressed={this.state.keyPressed}
           onHandleClearClickEventTarget={this.handleClearClickEventTarget}
+          onHandleClearEnterPress={this.handleClearEnterPress}
         />
         <BusinessList businesses={this.state.businesses} />
       </div>
