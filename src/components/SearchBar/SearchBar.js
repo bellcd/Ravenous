@@ -22,6 +22,7 @@ class SearchBar extends React.Component {
               onSortBy={this.props.onSortBy}
               term={this.props.term}
               location={this.props.location}
+              radius={this.props.radius}
               sortBy={this.props.sortBy}
               searchYelp={this.props.searchYelp}
               clickEventTarget={this.props.clickEventTarget}
@@ -32,6 +33,7 @@ class SearchBar extends React.Component {
         <div className="SearchBar-fields">
           <input onChange={this.props.onTermChange} placeholder="Search Businesses" />
           <input onChange={this.props.onLocationChange} placeholder="Where?" />
+          <input type="number" onChange={this.props.onRadiusChange} placeholder="Radius To Search (meters)" min="0" max="50000" />
         </div>
         <div className="SearchBar-submit">
           <a href="google.com" onClick={this.handleSearch}>Let's Go</a>
