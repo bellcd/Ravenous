@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, {
+  Component
+} from 'react';
 
 // doesn't this need to be INSIDE the component?! instructions from Codecademy said to put it here ...
 const sortByOptions = {
@@ -30,7 +32,7 @@ class SortByOptions extends Component {
   // Awkward implmentation (unexpected user actions cause API requests), must be a better way of accomplishing this
   componentDidUpdate(prevProps, prevState) {
     if (this.props.location !== "" && this.props.term !== "" && this.props.clickEventTarget.toString() === "[object HTMLLIElement]") {
-      this.props.searchYelp(this.props.term, this.props.location, this.props.sortBy);
+      this.props.searchYelp(this.props.term, this.props.location, this.props.sortBy, this.props.radius);
       this.props.onHandleClearClickEventTarget();
     }
   }

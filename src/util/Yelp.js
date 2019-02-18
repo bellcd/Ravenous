@@ -2,10 +2,10 @@ const apiKey = "WvKO6dMbgBJ-ndYhfhPPUrI7WwNby-8UNMX5eSwJhouJaq5MW3Us-sK02zMuv1bi
 
 const Yelp = {
 
-  search(term, location, sortBy) {
+  search(term, location, sortBy, radius) {
     // UNCOMMENT
-    console.log(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}`);
-    return fetch(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}`, {
+    console.log(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}&radius=${radius}`);
+    return fetch(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}&radius=${radius}`, {
       headers: {
         Authorization: `Bearer ${apiKey}`
       }
@@ -21,14 +21,21 @@ const Yelp = {
 
         const googleMapsUrl = `https://www.google.com/maps/place/`;
         const space = / /g;
+        let urlGoogleMaps = "";
 
         return jsonResponse.businesses.map(business => {
 
-          // creates a formatted URL to open each business' location in Google Maps
-          const streetAddress = business.location.address1.replace(space, '+');
-          const city = business.location.city.replace(space, '+');
-          const state = business.location.state;
-          const zip = business.location.zip_code;
+          if (business.location.address1 !== "" & business.location.city !== "") {
+            // creates a formatted URL to open each business' location in Google Maps
+            const streetAddress = business.location.address1.replace(space, '+');
+            const city = business.location.city.replace(space, '+');
+            const state = business.location.state;
+            const zip = business.location.zip_code;
+
+            urlGoogleMaps = `${googleMapsUrl}${streetAddress}+${city}+${state}+${zip}`
+          } else {
+            urlGoogleMaps = business.url;
+          }
 
           // returns an object of each business' data selected from the Yelp API response
           return {
@@ -43,9 +50,10 @@ const Yelp = {
             rating: business.rating,
             reviewCount: business.review_count,
             urlYelp: business.url,
-
             // adds the formatted URL as well
-            urlGoogleMaps: `${googleMapsUrl}${streetAddress}+${city}+${state}+${zip}`
+            urlGoogleMaps: urlGoogleMaps
+
+
           }
         })
       } else {

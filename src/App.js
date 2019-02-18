@@ -16,6 +16,7 @@ class App extends Component {
       businesses: [],
       term: "",
       location: "",
+      radius: 0,
       sortBy: "best_match",
       clickEventTarget: ""
     }
@@ -46,8 +47,15 @@ class App extends Component {
     });
   }
 
-  searchYelp = (term, location, sortBy) => {
-    Yelp.search(term, location, sortBy).then(businesses => {
+  handleRadiusChange(event) {
+    this.setState({
+      radius: event.target.value
+    });
+  }
+
+  searchYelp = (term, location, sortBy, radius = 0) => {
+    console.log("radius", radius);
+    Yelp.search(term, location, sortBy, radius).then(businesses => {
       this.setState({
         businesses: businesses
       });
@@ -63,9 +71,11 @@ class App extends Component {
           onSortByChange={(sortByOption, e) => this.handleSortByChange(sortByOption, e)}
           onTermChange={(event) => this.handleTermChange(event)}
           onLocationChange={(event) => this.handleLocationChange(event)}
+          onRadiusChange={(event) => this.handleRadiusChange(event)}
           term={this.state.term}
           location={this.state.location}
           sortBy={this.state.sortBy}
+          radius={this.state.radius}
           clickEventTarget={this.state.clickEventTarget}
           onHandleClearClickEventTarget={this.handleClearClickEventTarget}
         />
