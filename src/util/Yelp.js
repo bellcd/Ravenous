@@ -5,6 +5,7 @@ const Yelp = {
   search(term, location, sortBy, radius) {
     // UNCOMMENT
     console.log(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}&radius=${radius}`);
+
     return fetch(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}&radius=${radius}`, {
       headers: {
         Authorization: `Bearer ${apiKey}`
@@ -12,6 +13,8 @@ const Yelp = {
     })
     .then(response => {
       return response.json();
+    }, error => {
+      console.log("response from fetch(): ", error);
     })
     .then(jsonResponse => {
       // UNCOMMENT

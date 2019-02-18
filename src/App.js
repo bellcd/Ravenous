@@ -48,8 +48,10 @@ class App extends Component {
   }
 
   handleRadiusChange(event) {
+    const radiusInMeters = Math.floor(event.target.value * 1609.34);
+
     this.setState({
-      radius: event.target.value
+      radius: radiusInMeters
     });
   }
 
