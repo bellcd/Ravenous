@@ -16,6 +16,8 @@
 }
 
 .SearchBar-sort-options li {
+  display: flex;
+  align-items: center;
   cursor: pointer;
   width: 4.33rem;
   border-bottom: 1px solid #fff;
