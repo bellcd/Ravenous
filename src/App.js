@@ -20,6 +20,11 @@ class App extends Component {
     }
   }
 
+  componentDidUpdate() {
+    console.log("ComponentDidUpdate - this value: ", this);
+    this.searchYelp(this.state.term, this.state.location, this.state.sortBy);
+  }
+
   handleSortByChange(sortByOption) {
     this.setState({
       sortBy: sortByOption
