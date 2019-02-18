@@ -16,18 +16,21 @@ class App extends Component {
       businesses: [],
       term: "",
       location: "",
-      sortBy: "best_match"
+      sortBy: "best_match",
+      clickEventTarget: ""
     }
   }
 
-  componentDidUpdate() {
-    console.log("ComponentDidUpdate - this value: ", this);
-    this.searchYelp(this.state.term, this.state.location, this.state.sortBy);
+  handleClearClickEventTarget = () => {
+    this.setState({
+      clickEventTarget: ""
+    });
   }
 
-  handleSortByChange(sortByOption) {
+  handleSortByChange(sortByOption, e) {
     this.setState({
-      sortBy: sortByOption
+      sortBy: sortByOption,
+      clickEventTarget: e.target
     });
   }
 
@@ -57,12 +60,14 @@ class App extends Component {
         <h1>ravenous</h1>
         <SearchBar
           searchYelp={this.searchYelp}
-          onSortByChange={(sortByOption) => this.handleSortByChange(sortByOption)}
+          onSortByChange={(sortByOption, e) => this.handleSortByChange(sortByOption, e)}
           onTermChange={(event) => this.handleTermChange(event)}
           onLocationChange={(event) => this.handleLocationChange(event)}
           term={this.state.term}
           location={this.state.location}
           sortBy={this.state.sortBy}
+          clickEventTarget={this.state.clickEventTarget}
+          onHandleClearClickEventTarget={this.handleClearClickEventTarget}
         />
         <BusinessList businesses={this.state.businesses} />
       </div>
