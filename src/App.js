@@ -63,7 +63,7 @@ class App extends Component {
           term={this.state.term}
           location={this.state.location}
           sortBy={this.state.sortBy}
-          />
+        />
         <BusinessList businesses={this.state.businesses} />
       </div>
     )
