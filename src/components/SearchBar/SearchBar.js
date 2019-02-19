@@ -6,7 +6,8 @@ import InputFields from './../InputFields/InputFields';
 class SearchBar extends React.Component {
 
   handleSearch = (event) => {
-    this.props.searchYelp(this.props.term, this.props.location, this.props.sortBy, this.props.radius);
+    if (this.props.term !== "" && this.props.location !== "")
+      this.props.searchYelp(this.props.term, this.props.location, this.props.sortBy, this.props.radius);
     // UNCOMMENT
     if (event) {
       event.preventDefault();
@@ -43,10 +44,13 @@ class SearchBar extends React.Component {
             keyPressed={this.props.keyPressed}
             searchYelp={this.props.searchYelp}
             onHandleClearEnterPress={this.props.onHandleClearEnterPress}
+            clickEventTargetId={this.props.clickEventTargetId}
+            getLocations={this.props.getLocations}
+            suggestions={this.props.suggestions}
           />
         </div>
         <div className="SearchBar-submit">
-          <a href="google.com" onClick={this.handleSearch}>Let's Go</a>
+          <a href="google.com" onClick={this.handleSearch}>Search for Food!</a>
         </div>
       </div>
     )
