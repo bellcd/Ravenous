@@ -2,6 +2,7 @@ const apiKey = "WvKO6dMbgBJ-ndYhfhPPUrI7WwNby-8UNMX5eSwJhouJaq5MW3Us-sK02zMuv1bi
 
 const Yelp = {
 
+  // searching for businesses
   search(term, location, sortBy, radius) {
     // UNCOMMENT
     console.log(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}&radius=${radius}`);
@@ -28,7 +29,7 @@ const Yelp = {
 
         return jsonResponse.businesses.map(business => {
 
-          if (business.location.address1 !== "" & business.location.city !== "") {
+          if (business.location.address1 !== "" & business.location.city !== "" && typeof business.location.address1 === "string" && typeof business.location.city === "string" ) {
             // creates a formatted URL to open each business' location in Google Maps
             const streetAddress = business.location.address1.replace(space, '+');
             const city = business.location.city.replace(space, '+');
@@ -59,12 +60,26 @@ const Yelp = {
 
           }
         })
-      } else {
-        // UNCOMMENT!
-        console.log("The response from the Yelp API did not include businesses!");
+      }
+    }, error => console.log(error));
+  },
+
+  // autocomplete response of suggested locations
+  locations(text) {
+    return fetch(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/autocomplete?&text=${text}`, {
+      headers: {
+        Authorization: `Bearer ${apiKey}`
       }
     })
+    .then(response => response.json(), error => console.log(error))
+    .then(jsonResponse => {
+      return jsonResponse.terms.map((element, index) => {
+        return element["text"];
+      })
+
+    }, error => console.log(error))
+    .catch(error => console.log(error));
   }
-};
+}
 
 export { Yelp };

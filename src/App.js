@@ -19,7 +19,9 @@ class App extends Component {
       radius: 0,
       sortBy: "best_match",
       clickEventTarget: "",
+      clickEventTargetId: "",
       keyPressed: "",
+      suggestions: ["", "", ""]
     }
   }
 
@@ -47,14 +49,16 @@ class App extends Component {
   handleTermChange(event) {
     this.setState({
       term: event.target.value,
-      keyPressed: event.key
+      keyPressed: event.key,
+      clickEventTargetId: event.target.id
     });
   }
 
   handleLocationChange(event) {
     this.setState({
       location: event.target.value,
-      keyPressed: event.key
+      keyPressed: event.key,
+      clickEventTargetId: event.target.id
     });
   }
 
@@ -66,17 +70,26 @@ class App extends Component {
 
     this.setState({
       radius: radiusInMeters,
-      keyPressed: event.key
+      keyPressed: event.key,
+      clickEventTargetId: event.target.id
     });
   }
 
   searchYelp = (term, location, sortBy, radius = 0) => {
-    console.log("radius", radius);
     Yelp.search(term, location, sortBy, radius).then(businesses => {
       this.setState({
         businesses: businesses
       });
     })
+  }
+
+  getLocations = (location) => {
+    Yelp.locations(this.state.location).then(suggestion => {
+      this.setState({
+        suggestions: suggestion
+      })
+    })
+
   }
 
   render() {
@@ -97,6 +110,9 @@ class App extends Component {
           keyPressed={this.state.keyPressed}
           onHandleClearClickEventTarget={this.handleClearClickEventTarget}
           onHandleClearEnterPress={this.handleClearEnterPress}
+          clickEventTargetId={this.state.clickEventTargetId}
+          getLocations={this.getLocations}
+          suggestions={this.state.suggestions}
         />
         <BusinessList businesses={this.state.businesses} />
       </div>
